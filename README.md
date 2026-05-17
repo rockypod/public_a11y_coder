@@ -45,7 +45,7 @@ model-index:
 
 > Version **0.9.0** · License **MIT** · Released 2026-05-17
 
-**[HuggingFace — weights](https://huggingface.co/rockypod/a11y-public-coder)** ·
+**[HuggingFace — weights](https://huggingface.co/rockypod/a11y-public-coder-4b)** ·
 **[Install via Ollama](https://ollama.com/rockypod/public-a11y-coder)** — `ollama pull rockypod/public-a11y-coder` ·
 **[GitHub — exam, dataset, training pipeline](https://github.com/rockypod/public_a11y_coder)**
 
@@ -223,7 +223,7 @@ Add the model under Settings → Models → Ollama, point to your Ollama endpoin
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-model_name = "rockypod/a11y-public-coder"
+model_name = "rockypod/a11y-public-coder-4b"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype="auto", device_map="auto")
 
@@ -296,7 +296,7 @@ This release is reproducible end-to-end from the public artifacts:
   title        = {a11y-public-coder: An open-source accessibility coding assistant for the public sector},
   year         = {2026},
   publisher    = {Hugging Face},
-  howpublished = {\url{https://huggingface.co/rockypod/a11y-public-coder}},
+  howpublished = {\url{https://huggingface.co/rockypod/a11y-public-coder-4b}},
 }
 ```
 
