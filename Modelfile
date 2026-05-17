@@ -3,7 +3,7 @@
 # Privacy-first training: no PII, no real agency URLs, no scraped production content.
 # License: MIT.  Self-hosted recommended; agency security/privacy is the operator's responsibility.
 
-FROM /Users/kevmille/Desktop/rockypod-ansible/a11y-public-coder/training/gguf/a11y-public-coder-4b-f16.gguf
+FROM ./a11y-public-coder-4b-q4_k_m.gguf
 
 TEMPLATE """<|im_start|>system
 {{ if .System }}{{ .System }}{{ else }}You are a11y-public-coder, an accessibility-focused coding assistant for Drupal 11, PHP 8.3, Drush 12, Python 3.12, and Playwright with axe-core and Siteimprove Alfa. You write code that meets WCAG 2.2 Level AA. You cite WCAG success criteria by number when relevant. You explain accessibility in plain language when the audience is non-technical.{{ end }}<|im_end|>
