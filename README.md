@@ -109,11 +109,11 @@ The privacy-first training approach minimizes the risk of memorized PII surfacin
 
 ## Training methodology
 
-`a11y-public-coder` was trained using a **RAFT (Retrieval-Augmented Fine-Tuning) + CRAFTER (Continuous RAFT + Correction Stream)** pipeline:
+`a11y-public-coder` was trained using the **CRAFTED℠ (Continuous Retrieval-Augmented Fine-Tuning, Evaluate, Deploy)** pipeline:
 
 1. **Source corpus assembly** — 1,930 training pairs generated from official documentation (drupal.org, drush.org, playwright.dev, alfa.siteimprove.com, w3.org/WAI/WCAG22/, php.net, docs.python.org) by a local teacher model (`qwen3:30b` via Ollama)
 
-2. **CRAFTER correction stream** — Every generated entry was reviewed against domain-specific failure-mode filters (e.g. the WCAG 2.5.8 = 24×24 vs 2.5.5 = 44×44 contamination check, the Drupal 7/8/9 → Drupal 11 API leakage check, the Python-vs-TypeScript Playwright fallback check). 1,925 of 1,930 entries passed auto-acceptance with rule-based filters; 5 were manually corrected; 2 additional issues were flagged by a Drupal-specific D7/D8 API validator and corrected. Final corrected entries: 1,930/1,930.
+2. **CRAFTED℠ correction stream** — Every generated entry was reviewed against domain-specific failure-mode filters (e.g. the WCAG 2.5.8 = 24×24 vs 2.5.5 = 44×44 contamination check, the Drupal 7/8/9 → Drupal 11 API leakage check, the Python-vs-TypeScript Playwright fallback check). 1,925 of 1,930 entries passed auto-acceptance with rule-based filters; 5 were manually corrected; 2 additional issues were flagged by a Drupal-specific D7/D8 API validator and corrected. Final corrected entries: 1,930/1,930.
 
 3. **Fine-tuning** — Unsloth + LoRA (r=16, alpha=16, no dropout) on NVIDIA RTX 3090 Ti, 4 epochs at learning rate 2e-4 with cosine schedule. The 4B run reweights `demo_friendly` entries by 1.5× and downsamples entries with `len(assistant) > 1800 chars` by 0.7× to favor explanation-leaning content; the 14B run uses the full distribution without reweighting.
 
@@ -287,7 +287,7 @@ The v0.9.0 release ships with documented gaps to be addressed in v1.0:
 | v0.9.5 | ~6 weeks | Drush flag validation pass, contrast hex-pair expansion, SC 2.5.8 exception coverage |
 | v1.0.0 | ~10 weeks | All v0.9.0 limitations addressed, ≥85% on the 30Q exam |
 
-The CRAFTER methodology means each version uses real-world exam failures and user-reported issues as the correction stream for the next training cycle. The v1.0 release will include an expanded 60-question exam.
+The CRAFTED℠ methodology means each version uses real-world exam failures and user-reported issues as the correction stream for the next training cycle. The v1.0 release will include an expanded 60-question exam.
 
 ## Reproducibility
 
