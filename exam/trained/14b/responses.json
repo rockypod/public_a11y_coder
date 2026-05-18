@@ -1,0 +1,280 @@
+{
+  "model": "a11y-public-coder:14b",
+  "timestamp": "2026-05-18T02:33:28.128534+00:00",
+  "questions": [
+    {
+      "id": 1,
+      "tier": "T1",
+      "domain": "Drupal 11",
+      "prompt": "Write a `hook_preprocess_node` function for a Drupal 11 custom module called `mymodule` that adds a `estimated_read_time` variable (integer, minutes) to article nodes, calculated from the `body` field's word count assuming 200 words per minute. Show the full function with proper namespace placement.",
+      "response": "```php\n<?php\n\nnamespace Drupal\\mymodule;\n\nuse Drupal\\Core\\Render\\Element;\nuse Drupal\\node\\NodeInterface;\nuse Drupal\\file\\FileInterface;\nuse Drupal\\media\\MediaInterface;\nuse Drupal\\user\\UserInterface;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface;\nuse Drupal\\field\\FieldItemInterface;\nuse Drupal\\field\\FieldItemBase;\nuse Drupal\\field\\FieldStorageDefinitionInterface;\nuse Drupal\\field\\FieldDefinitionInterface",
+      "flags": [],
+      "elapsed": 40.6
+    },
+    {
+      "id": 2,
+      "tier": "T1",
+      "domain": "Drupal 11",
+      "prompt": "Show the Drupal 11 render array for a link with the text \"Apply Now\", linking to `/apply`, with an `aria-label` of \"Apply now for benefits\".",
+      "response": "```php\n$build = [\n  '#type' => 'link',\n  '#title' => t('Apply Now'),\n  '#url' => Url::fromRoute('my_module.apply_form'),\n  '#attributes' => [\n    'aria-label' => 'Apply now for benefits',\n  ],\n];\n\n// Or using renderable properties directly:\n$build = [\n  '#type' => 'link',\n  '#text' => 'Apply Now',\n  '#url' => Url::fromRoute('my_module.apply_form'),\n  '#attributes' => [\n    'aria-label' => 'Apply now for benefits',\n  ],\n];\n```\n\nNotes:\n- Use `#type => 'link'` (not `'a'`), which auto-escapes and renders correctly.\n- `#title` or `#text` both work; prefer `#text` for plain text.\n- `aria-label` is added via `#attributes` \u2014 do not hardcode in `#text`.\n- Always use `Url::fromRoute()` (not hardcoded `/apply`).\n- For accessibility, ensure the `aria-label` is concise and context-appropriate.",
+      "flags": [],
+      "elapsed": 8.5
+    },
+    {
+      "id": 3,
+      "tier": "T2",
+      "domain": "Drupal 11",
+      "prompt": "In the Webform module, how do you configure an email field to be required AND ensure its visible label is programmatically associated with the input? Show the relevant YAML configuration snippet.",
+      "response": "In `webform.yml` or the specific form\u2019s configuration (e.g., `config/sync/config/sync/core/content/webform/my_form.yml`), define the email element like this:\n\n```yaml\nelements:\n  email:\n    '#type': email\n    '#title': 'Email address'\n    '#required': true\n    '#title_display': 'before'\n    '#description': 'We will use this to send confirmation.'\n```\n\nKey points:\n- `#type: email` ensures HTML5 validation and accessible `<input type=\"email\">`.\n- `#title` provides the visible label; **must be present** for association.\n- `#required: true` adds `aria-required=\"true\"` and `required` attribute.\n- `#title_display: 'before'` (default) ensures label renders *before* the input, aiding screen reader flow.\n\nAvoid `#title_display: 'invisible'` unless paired with `#aria_label` \u2014 otherwise, the label is missing for accessibility.",
+      "flags": [],
+      "elapsed": 8.5
+    },
+    {
+      "id": 4,
+      "tier": "T3",
+      "domain": "Drupal 11",
+      "prompt": "Why does the Twig sandbox in Drupal 11 prevent calling `entity.access('view')` in a node template, and what's the recommended workaround?",
+      "response": "The Twig sandbox in Drupal 11 blocks **method calls on objects** (including entity methods like `access()`) for security \u2014 to prevent arbitrary code execution and ensure templates remain presentation-only.\n\n\u2705 **Recommended workaround**:\n1. Precompute access in a preprocess hook:\n```php\n// In mymodule.module or node.theme\nfunction mymodule_preprocess_node(&$variables) {\n  $node = $variables['node'];\n  $variables['can_view'] = $node->access('view')->isAllowed();\n}\n```\n2. In `node.html.twig`, use the precomputed variable:\n```twig\n{% if can_view %}\n  <article{{ attributes }}>\n    {{ content }}\n  </article>\n{% else %}\n  <p>{{ 'Access denied'|t }}</p>\n{% endif %}\n```\n\n\u26a0\ufe0f Never call `node.access('view')` directly in Twig \u2014 it will throw a `TwigSandboxException`.",
+      "flags": [],
+      "elapsed": 6.8
+    },
+    {
+      "id": 5,
+      "tier": "T4",
+      "domain": "Drupal 11",
+      "prompt": "Create a Drupal 11 module endpoint at `/api/word-count` that accepts POST requests with a `text` parameter and returns JSON with the word count. Provide both the `mymodule.routing.yml` entry and the controller class.",
+      "response": "**`mymodule.routing.yml`**:\n```yaml\nmymodule.word_count:\n  path: '/api/word-count'\n  defaults:\n    _controller: '\\Drupal\\mymodule\\Controller\\WordCountController::count'\n    _method: 'POST'\n    _format: 'json'\n  requirements:\n    _permission: 'access content'\n```\n\n**`src/Controller/WordCountController.php`**:\n```php\n<?php\n\nnamespace Drupal\\mymodule\\Controller;\n\nuse Drupal\\Core\\Controller\\ControllerBase;\nuse Symfony\\Component\\HttpFoundation\\Request;\nuse Symfony\\Component\\HttpFoundation\\JsonResponse;\nuse Symfony\\Component\\HttpKernel\\Exception\\BadRequestHttpException;\n\nclass WordCountController extends ControllerBase {\n\n  public function count(Request $request): JsonResponse {\n    $data = json_decode($request->getContent(), TRUE);\n\n    if (!isset($data['text']) || !is_string($data['text'])) {\n      throw new BadRequestHttpException('Missing or invalid \"text\" parameter.');\n    }\n\n    $wordCount = str_word_count(trim($data['text']));\n\n    return new JsonResponse([\n      'word_count' => $wordCount,\n    ]);\n  }\n\n}\n```\n\n\u2705 Uses `str_word_count()` for accurate English tokenization.\n\u2705 Returns `200 OK` with JSON body on success.\n\u2705 Throws `BadRequestHttpException` for invalid input (handled by Drupal\u2019s error layer).\n\u2705 Requires `_permission: 'access content'` for security.",
+      "flags": [],
+      "elapsed": 11.5
+    },
+    {
+      "id": 6,
+      "tier": "T4",
+      "domain": "Drupal 11",
+      "prompt": "Create a Drupal 11 custom Block plugin using PHP 8 attributes (the `#[Block]` attribute, not annotations) that displays \"Hello, [current user name]\". Include the file path, namespace, and full class.",
+      "response": "File path: `modules/custom/hello_block/src/Plugin/Block/HelloBlock.php`\n\n```php\n<?php\n\ndeclare(strict_types=1);\n\nnamespace Drupal\\hello_block\\Plugin\\Block;\n\nuse Drupal\\Core\\Block\\BlockBase;\nuse Drupal\\Core\\Plugin\\Attribute\\Block;\nuse Drupal\\Core\\Form\\FormStateInterface;\nuse Drupal\\Core\\Plugin\\ContainerFactoryPluginInterface;\nuse Symfony\\Component\\DependencyInjection\\ContainerInterface;\n\n#[Block(\n  id: 'hello_block',\n  admin_label: 'Hello Block',\n)]\nclass HelloBlock extends BlockBase implements ContainerFactoryPluginInterface {\n\n  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {\n    return new static(\n      $configuration,\n      $plugin_id,\n      $plugin_definition,\n      $container->get('current_user')\n    );\n  }\n\n  protected $currentUser;\n\n  public function __construct(array $configuration, $plugin_id, $plugin_definition, $current_user) {\n    parent::__construct($configuration, $plugin_id, $plugin_definition);\n    $this->currentUser = $current_user;\n  }\n\n  public function defaultConfiguration(): array {\n    return parent::defaultConfiguration() + [\n      'greeting' => 'Hello',\n    ];\n  }\n\n  public function blockForm($form, FormStateInterface $form_state): array {\n    $form = parent::blockForm($form, $form_state);\n    $form['greeting'] = [\n      '#type' => 'textfield',\n      '#title' => $this->t('Greeting'),\n      '#default_value' => $this->configuration['greeting'],\n      '#required' => TRUE,\n    ];\n    return $form;\n  }\n\n  public function blockSubmit($form, FormStateInterface $form_state): void {\n    parent::blockSubmit($form, $form_state);\n    $this->configuration['greeting'] = $form_state->getValue('greeting');\n  }\n\n  public function build(): array {\n    $name = $this->currentUser->getDisplayName();\n    return [\n      '#markup' => $this->t('@greeting, @name', [\n        '@greeting' => $this->configuration['greeting'],\n        '@name' => $name ?: $this->t('anonymous'),\n      ]),\n    ];\n  }\n\n}\n```\n\nKey points:\n- Uses `#[Block]` attribute (PHP 8+) instead of `@Block` annotation\n- Implements `ContainerFactoryPluginInterface` for dependency injection (`current_user`)\n- Uses `declare(strict_types=1)` and typed constructor parameters\n- `build()` returns a render array with `#markup` and proper translation via `$this->t()`",
+      "flags": [],
+      "elapsed": 19.6
+    },
+    {
+      "id": 7,
+      "tier": "T5",
+      "domain": "Drupal 11",
+      "prompt": "An image field on the article content type defaults to \"Alt text required\" but content editors can still bypass it via the API. Write a `hook_form_alter` (or `hook_form_BASE_FORM_ID_alter`) that makes alt text strictly required when uploading images via the article node form, and explain which WCAG SC this enforces.",
+      "response": "Implement in `my_module.module`:\n\n```php\nuse Drupal\\Core\\Form\\FormStateInterface;\n\nfunction my_module_form_article_node_form_alter(&$form, FormStateInterface $form_state, $form_id) {\n  // Ensure alt text is required for all image fields on the article form.\n  $image_fields = $form['field_image'] ?? $form['field_image_2'] ?? [];\n\n  if (!empty($image_fields)) {\n    $image_fields['alt'] = [\n      '#type' => 'textfield',\n      '#title' => t('Alternative text'),\n      '#required' => TRUE,\n      '#attributes' => [\n        'aria-required' => 'true',\n      ],\n    ];\n  }\n}\n```\n\n**WCAG SC**: [1.1.1 Non-text Content](https://www.w3.org/TR/WCAG22/#non-text-content)\n\n**Why**: Alt text is required for *all* non-decorative images to convey the same meaning as the visual content. Leaving it empty or optional allows content authors to omit critical information for screen reader users.\n\n**Note**: This assumes the image is *not* purely decorative. For decorative images, use `alt = ''` (empty string) \u2014 but that should be enforced via field settings, not this hook.",
+      "flags": [],
+      "elapsed": 11.4
+    },
+    {
+      "id": 8,
+      "tier": "T5",
+      "domain": "Drupal 11",
+      "prompt": "A content editor pastes the following inline HTML into a body field: `<div onclick=\"alert('hi')\">Click me</div>`. Explain why this fails WCAG 2.2 AA, and describe how to use Drupal 11's text format filters to prevent or sanitize this pattern.",
+      "response": "This fails **SC 4.1.2 Name, Role, Value** and **SC 2.1.1 Keyboard** because:\n\n- `onclick` adds **non-standard behavior** without user control (violates SC 2.1.1 if keyboard-only users cannot trigger it)\n- Inline event handlers (`onclick`, `onmouseover`, etc.) are **not accessible** and not maintainable (SC 4.1.2 requires predictable semantics)\n- They are **not valid ARIA patterns** and break separation of concerns\n\n\u2705 **Drupal 11 fix using text format filters**:\n\n1. Go to **/admin/config/content/formats** \u2192 edit the format (e.g., *Basic HTML*).\n2. Under **Filter settings**, enable:\n   - **HTML Corrector** (auto-corrects malformed HTML)\n   - **HTML Sanitize** (removes or escapes unsafe attributes)\n   - **Limit allowed HTML tags** \u2192 restrict to:\n     ```yaml\n     allowed_tags:\n       - 'a'\n       - 'button'\n       - 'p'\n       - 'strong'\n       - 'em'\n     allowed_attributes:\n       a:\n         - 'href'\n         - 'title'\n       button:\n         - 'type'\n         - 'aria-label'\n     ```\n3. **Disable** or **restrict** attributes like `onclick`, `onchange`, `onload`, etc. in the allowed attributes list.\n\n\u2705 **Alternative (better)**: Replace inline HTML with proper Drupal render arrays:\n```php\n$build['my_button'] = [\n  '#type' => 'button',\n  '#value' => 'Click me',\n  '#attributes' => [\n    'aria-label' => 'Click to proceed',\n  ],\n  '#ajax' => [\n    'callback' => '::handleClick',\n  ],\n];\n```\n\n\u2705 **Bonus**: Use **[Accessibility Checker](https://www.drupal.org/project/a11ychecker)** to audit rendered HTML.",
+      "flags": [],
+      "elapsed": 14.5
+    },
+    {
+      "id": 9,
+      "tier": "T6",
+      "domain": "PHP",
+      "prompt": "Convert this Drupal 7-style code to a Drupal 11 controller class with proper dependency injection: `$user = user_load(1); $name = $user->name;`. Show the full controller class including the `create()` static factory method.",
+      "response": "In Drupal 11, use `EntityTypeManagerInterface` and `UserInterface` via dependency injection. Here's the correct controller:\n\n```php\n<?php\n\ndeclare(strict_types=1);\n\nnamespace Drupal\\my_module\\Controller;\n\nuse Drupal\\Core\\Controller\\ControllerBase;\nuse Drupal\\Core\\Entity\\EntityTypeManagerInterface;\nuse Drupal\\Core\\Entity\\EntityTypeInterface;\nuse Drupal\\user\\Entity\\User;\nuse Symfony\\Component\\DependencyInjection\\ContainerInterface;\nuse Symfony\\Component\\DependencyInjection\\ServiceId;\n\nclass UserController extends ControllerBase {\n\n  protected EntityTypeManagerInterface $entityTypeManager;\n\n  public function __construct(EntityTypeManagerInterface $entityTypeManager) {\n    $this->entityTypeManager = $entityTypeManager;\n  }\n\n  public static function create(ContainerInterface $container): self {\n    return new self(\n      $container->get('entity_type.manager')\n    );\n  }\n\n  public function viewUser(int $userId): array {\n    $storage = $this->entityTypeManager->getStorage('user');\n    $user = $storage->load($userId);\n\n    if (!$user instanceof User) {\n      throw new \\Exception('User not found.');\n    }\n\n    return [\n      '#type' => 'markup',\n      '#markup' => $this->t('User name: @name', ['@name' => $user->getAccountName()]),\n    ];\n  }\n}\n```\n\nKey corrections:\n- `user_load()` is removed in Drupal 10+; use `EntityTypeManager::getStorage('user')->load()` or `EntityTypeManager::loadEntityByUuid()` for UUIDs.\n- `getAccountName()` is the correct method for the user name (returns `string`).\n- Always inject `entity_type.manager`, never call `EntityTypeManager::load()` statically.\n- Use `ContainerInterface::get('entity_type.manager')`, not `Drupal::service()`.",
+      "flags": [
+        "user_load() (D7, removed)"
+      ],
+      "elapsed": 13.2
+    },
+    {
+      "id": 10,
+      "tier": "T6",
+      "domain": "PHP",
+      "prompt": "Write a Drupal 11 service class `WordCounter` (in `Drupal\\mymodule\\Service`) that uses PHP 8.3 features (constructor property promotion, readonly properties where appropriate, typed parameters and return types). Include the matching `mymodule.services.yml` definition.",
+      "response": "**`src/Service/WordCounter.php`**\n```php\n<?php\n\ndeclare(strict_types=1);\n\nnamespace Drupal\\mymodule\\Service;\n\nuse Drupal\\Core\\StringTranslation\\StringTranslationTrait;\nuse Drupal\\Core\\StringTranslation\\TranslatableMarkup;\n\nfinal class WordCounter {\n  use StringTranslationTrait;\n\n  public function __construct(\n    private readonly string $language = 'en',\n  ) {}\n\n  public function countWords(string $text): int {\n    // Normalize newlines and trim whitespace\n    $text = str_replace([\"\\r\\n\", \"\\r\"], \"\\n\", $text);\n    $text = trim($text);\n\n    // Split on whitespace, preserving punctuation attached to words\n    $words = preg_split('/\\s+/', $text, -1, PREG_SPLIT_NO_EMPTY);\n\n    return count($words);\n  }\n\n  public function getWordCountLabel(): TranslatableMarkup {\n    return $this->t('Word count');\n  }\n}\n```\n\n**`mymodule.services.yml`**\n```yaml\nservices:\n  mymodule.word_counter:\n    class: Drupal\\mymodule\\Service\\WordCounter\n    arguments:\n      $language: 'en'\n    tags:\n      - { name: mymodule.service }\n```\n\n**Key PHP 8.3 features used:**\n- `readonly` property on constructor parameter\n- `final` class and method (where appropriate)\n- `declare(strict_types=1)`\n- Typed constructor arguments and return types (`string`, `int`, `TranslatableMarkup`)\n- Use of `StringTranslationTrait` for translation (Drupal core pattern)",
+      "flags": [],
+      "elapsed": 11.4
+    },
+    {
+      "id": 11,
+      "tier": "T7",
+      "domain": "Drush",
+      "prompt": "After running `composer update`, what single Drush command (or chain) clears all caches and runs database updates? Provide the exact command(s).",
+      "response": "Run the following in sequence:\n\n```bash\ndrush cr\ndrush updb\n```\n\nOr combine in one line for brevity:\n\n```bash\ndrush cr && drush updb\n```\n\nExplanation:\n- `drush cr` (alias for `cache:rebuild`) clears all caches (including container, render, and discovery caches).\n- `drush updb` (alias for `updatedb:apply`) runs pending database updates (schema changes, config imports, etc.).\n\n\u26a0\ufe0f Always run `drush updb` *after* `drush cr` to ensure updated services are available during updates.",
+      "flags": [],
+      "elapsed": 4.9
+    },
+    {
+      "id": 12,
+      "tier": "T7",
+      "domain": "Drush",
+      "prompt": "Write the Drush command(s) to export only the configuration for the article content type (and its fields) to `config/sync/`, without exporting unrelated config changes.",
+      "response": "Use `drush config:export` with the `--source` and `--destination` options, or better: use `drush config:export` with `--partial` and filter by type.\n\n**Recommended (Drush 12)**:\n```bash\ndrush config:export \\\n  --source=../config/sync \\\n  --destination=../config/sync \\\n  --partial \\\n  --type=node_type \\\n  --name=article\n```\n\n**Alternative (explicit export + import)**:\n```bash\n# Export only article node type and its fields\ndrush config:export \\\n  --source=../config/sync \\\n  --destination=../config/sync \\\n  --partial \\\n  --include=node.type.article \\\n  --include=node.field.storage.node.* \\\n  --include=node.type.*.label \\\n  --exclude=node.type.*.uuid\n```\n\n**Important**:\n- `--partial` is required to avoid full sync\n- Use `--source` to read from the sync directory (not the active DB)\n- Avoid `--force` unless you know what you're doing\n- Always verify with `drush config:status` before committing\n\n**To import later**:\n```bash\ndrush config:import \\\n  --source=../config/sync \\\n  --partial \\\n  --yes\n```",
+      "flags": [],
+      "elapsed": 10.5
+    },
+    {
+      "id": 13,
+      "tier": "T8",
+      "domain": "Drush",
+      "prompt": "Create a custom Drush 12 command that counts published nodes of bundle \"article\" and outputs the count to stdout. Use the `#[CLI\\Command]` attribute pattern. Show the full file and the namespace.",
+      "response": "```php\n<?php\n\ndeclare(strict_types=1);\n\nnamespace Drupal\\my_module\\Drush\\Commands;\n\nuse Drupal\\Core\\Entity\\EntityTypeManagerInterface;\nuse Drush\\Attributes as CLI;\nuse Drush\\Commands\\DrushCommands;\nuse Symfony\\Component\\DependencyInjection\\ContainerInterface;\n\nfinal class ArticleCountCommands extends DrushCommands {\n\n  public function __construct(\n    private EntityTypeManagerInterface $entityTypeManager\n  ) {\n  }\n\n  #[CLI\\Command(\n    name: 'my-module:article-count',\n    aliases: ['article-count'],\n    description: 'Count published article nodes.'\n  )]\n  public function count(): int {\n    $storage = $this->entityTypeManager->getStorage('node');\n    $count = $storage->getQuery()\n      ->condition('type', 'article')\n      ->condition('status', 1)\n      ->count()\n      ->execute();\n\n    $this->io()->success(\"Published article count: {$count}\");\n    return $count;\n  }\n}\n```",
+      "flags": [],
+      "elapsed": 7.3
+    },
+    {
+      "id": 14,
+      "tier": "T9",
+      "domain": "Python",
+      "prompt": "Write a Python 3.12 script using `pathlib` that recursively walks a directory passed as a CLI argument and outputs file counts grouped by extension, sorted descending by count. Use `argparse` for the CLI.",
+      "response": "```python\n#!/usr/bin/env python3\n\"\"\"Count files by extension in a directory tree.\"\"\"\n\nimport argparse\nimport sys\nfrom collections import Counter\nfrom pathlib import Path\n\n\ndef count_extensions(root: Path) -> Counter[str]:\n    \"\"\"Recursively count files by extension under root.\"\"\"\n    counter = Counter()\n    try:\n        for path in root.rglob('*'):\n            if path.is_file():\n                ext = path.suffix.lstrip('.').lower() or 'no-extension'\n                counter[ext] += 1\n    except PermissionError as e:\n        print(f\"Permission denied accessing {e.filename}\", file=sys.stderr)\n    except FileNotFoundError as e:\n        print(f\"Path not found: {e.filename}\", file=sys.stderr)\n    return counter\n\n\ndef main() -> None:\n    parser = argparse.ArgumentParser(\n        description=\"Recursively count files by extension in a directory.\"\n    )\n    parser.add_argument(\n        'directory',\n        type=Path,\n        help='Root directory to scan (e.g., /mnt/agency-docs)'\n    )\n    parser.add_argument(\n        '--top',\n        type=int,\n        default=10,\n        help='Number of top extensions to display (default: 10)'\n    )\n    args = parser.parse_args()\n\n    if not args.directory.exists():\n        print(f\"Error: Directory not found: {args.directory}\", file=sys.stderr)\n        sys.exit(1)\n\n    counts = count_extensions(args.directory)\n    if not counts:\n        print(\"No files found.\")\n        return\n\n    print(f\"File counts under {args.directory}:\")\n    for ext, cnt in counts.most_common(args.top):\n        print(f\"  {ext or '(none)'}: {cnt}\")\n\n\nif __name__ == '__main__':\n    main()\n```",
+      "flags": [],
+      "elapsed": 13.6
+    },
+    {
+      "id": 15,
+      "tier": "T10",
+      "domain": "Python",
+      "prompt": "Write a Python script that converts every `.docx` file in an input folder to `.pdf` in an output folder, preserving the original base filename. Use a headless LibreOffice approach (subprocess) \u2014 no proprietary libraries.",
+      "response": "```python\nimport subprocess\nfrom pathlib import Path\nfrom typing import List\n\ndef docx_to_pdf(input_dir: Path, output_dir: Path, timeout: int = 120) -> List[str]:\n    \"\"\"\n    Convert all .docx files in input_dir to .pdf in output_dir.\n    Returns list of successfully converted filenames.\n    \"\"\"\n    output_dir.mkdir(parents=True, exist_ok=True)\n    results: List[str] = []\n    \n    for docx_path in input_dir.glob(\"*.docx\"):\n        try:\n            output_path = output_dir / f\"{docx_path.stem}.pdf\"\n            cmd = [\n                \"libreoffice\",\n                \"--headless\",\n                \"--convert-to\", \"pdf\",\n                \"--outdir\", str(output_dir),\n                str(docx_path)\n            ]\n            result = subprocess.run(\n                cmd,\n                capture_output=True,\n                text=True,\n                timeout=timeout,\n                check=False\n            )\n            if result.returncode != 0:\n                raise RuntimeError(f\"LibreOffice failed: {result.stderr}\")\n            if output_path.exists():\n                results.append(output_path.name)\n        except Exception as e:\n            print(f\"Error converting {docx_path}: {e}\")\n    \n    return results\n\n# Example usage\nif __name__ == \"__main__\":\n    input_folder = Path(\"/tmp/input\")\n    output_folder = Path(\"/tmp/output\")\n    converted = docx_to_pdf(input_folder, output_folder)\n    print(f\"Converted {len(converted)} files: {converted}\")\n```",
+      "flags": [],
+      "elapsed": 11.1
+    },
+    {
+      "id": 16,
+      "tier": "T10",
+      "domain": "Python",
+      "prompt": "Write a Python script using `pymupdf` (fitz) that takes a PDF path and outputs, for each page, whether it has a text layer or appears image-only (and would need OCR). Format: one line per page, `page N: text` or `page N: image-only`.",
+      "response": "```python\nimport fitz  # PyMuPDF\nfrom pathlib import Path\n\ndef has_text_layer(pdf_path: str) -> list[str]:\n    \"\"\"Return list of lines indicating whether each page has a text layer.\"\"\"\n    results: list[str] = []\n    doc = fitz.open(pdf_path)\n    for i, page in enumerate(doc):\n        text = page.get_text(\"text\")\n        if text.strip():\n            results.append(f\"page {i + 1}: text\")\n        else:\n            # Check for text in blocks (more robust than get_text(\"\"))\n            blocks = page.get_text(\"blocks\")\n            if any(b[4].strip() for b in blocks):\n                results.append(f\"page {i + 1}: text\")\n            else:\n                results.append(f\"page {i + 1}: image-only\")\n    doc.close()\n    return results\n\n# Example usage\nif __name__ == \"__main__\":\n    path = Path(\"example.pdf\")\n    if path.exists():\n        for line in has_text_layer(str(path)):\n            print(line)\n    else:\n        print(f\"File not found: {path}\")\n```",
+      "flags": [],
+      "elapsed": 8.1
+    },
+    {
+      "id": 17,
+      "tier": "T11",
+      "domain": "Python",
+      "prompt": "Write a Python script that scans all `.html` files under a directory and reports any `<img>` tags missing the `alt` attribute. Cite the relevant WCAG SC in the script's docstring. Use `BeautifulSoup4`.",
+      "response": "```python\n#!/usr/bin/env python3\n\"\"\"Scan HTML files for missing `alt` attributes on `<img>` tags per WCAG 2.2 AA.\"\"\"\n\nimport argparse\nimport sys\nfrom pathlib import Path\nfrom bs4 import BeautifulSoup\n\n\ndef find_missing_alt(directory: Path) -> list[tuple[Path, str]]:\n    \"\"\"Return list of (file_path, img_src) for `<img>` tags missing `alt`.\"\"\"\n    issues: list[tuple[Path, str]] = []\n    for html_file in directory.rglob(\"*.html\"):\n        try:\n            soup = BeautifulSoup(html_file.read_text(), \"html.parser\")\n            for img in soup.find_all(\"img\"):\n                if not img.has_attr(\"alt\") or img.get(\"alt\", \"\").strip() == \"\":\n                    issues.append((html_file, img.get(\"src\", \"(inline)\")))\n        except Exception as e:\n            print(f\"\u26a0\ufe0f  Skipping {html_file}: {e}\", file=sys.stderr)\n    return issues\n\n\ndef main() -> None:\n    parser = argparse.ArgumentParser(\n        description=\"Check HTML files for missing `alt` on `<img>` (SC 1.1.1)\"\n    )\n    parser.add_argument(\n        \"--dir\",\n        type=Path,\n        default=Path(\"/mnt/agency-docs\"),\n        help=\"Root directory to scan (default: /mnt/agency-docs)\"\n    )\n    args = parser.parse_args()\n\n    if not args.dir.exists():\n        print(f\"Error: Directory not found: {args.dir}\", file=sys.stderr)\n        sys.exit(1)\n\n    issues = find_missing_alt(args.dir)\n    if not issues:\n        print(\"\u2705 No missing `alt` attributes found.\")\n    else:\n        print(f\"\u274c Found {len(issues)} image(s) missing `alt` attribute:\")\n        for file, src in issues:\n            print(f\"  - {file.name}: <img src='{src}'>\")\n\n\nif __name__ == \"__main__\":\n    main()\n```",
+      "flags": [],
+      "elapsed": 14.5
+    },
+    {
+      "id": 18,
+      "tier": "T13",
+      "domain": "Playwright + axe-core",
+      "prompt": "Write a `@playwright/test` test file (TypeScript) that navigates to `https://gov.example.org` and uses `@axe-core/playwright`'s `AxeBuilder` to assert there are zero accessibility violations.",
+      "response": "```ts\nimport { test, expect } from '@playwright/test';\nimport AxeBuilder from '@axe-core/playwright';\n\ntest('gov.example.org has no accessibility violations', async ({ page }) => {\n  await page.goto('https://gov.example.org');\n\n  const accessibilityScanResults = await new AxeBuilder({ page })\n    .withTags(['wcag2a', 'wcag2aa', 'wcag22aa'])\n    .include('main')\n    .disableRules(['color-contrast', 'duplicate-id']) // Example: disable known false positives in controlled environments\n    .analyze();\n\n  expect(accessibilityScanResults.violations).toHaveLength(0);\n});\n```",
+      "flags": [],
+      "elapsed": 5.2
+    },
+    {
+      "id": 19,
+      "tier": "T13",
+      "domain": "Playwright + axe-core",
+      "prompt": "Modify the test from Q18 to run only WCAG 2.2 Level A and AA rules, excluding AAA and best-practice rules. Use `AxeBuilder`'s `withTags` method.",
+      "response": "```ts\nimport { test, expect } from '@playwright/test';\nimport AxeBuilder from '@axe-core/playwright';\n\ntest('WCAG 2.2 AA only audit', async ({ page }) => {\n  await page.goto('https://agency.example.org/accessibility-test');\n\n  const results = await new AxeBuilder({ page })\n    .withTags(['wcag2a', 'wcag2aa'])\n    .disableRules(['color-contrast', 'duplicate-id']) // optional: suppress known false positives\n    .analyze();\n\n  expect(results.violations).toHaveLength(0);\n});\n```",
+      "flags": [],
+      "elapsed": 4.6
+    },
+    {
+      "id": 20,
+      "tier": "T13",
+      "domain": "Playwright + axe-core",
+      "prompt": "Write a Playwright + axe-core test that logs in via a form (username `test@example.gov`, password `placeholder`) before running the a11y audit on `/dashboard`. Storage state pattern is acceptable, or do the login inside the test.",
+      "response": "```ts\nimport { test, expect } from '@playwright/test';\nimport AxeBuilder from '@axe-core/playwright';\n\ntest('dashboard is accessible after login', async ({ page }) => {\n  // 1. Navigate to login page and fill form\n  await page.goto('https://agency.example.gov/login');\n  await page.getByLabel('Username').fill('test@example.gov');\n  await page.getByLabel('Password').fill('placeholder');\n  await page.getByRole('button', { name: 'Log in' }).click();\n\n  // 2. Wait for dashboard to load\n  await page.waitForURL('**/dashboard');\n  await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible();\n\n  // 3. Run axe audit\n  const results = await new AxeBuilder({ page })\n    .withTags(['wcag2a', 'wcag2aa', 'wcag22aa'])\n    .include('main')\n    .disableRules(['color-contrast', 'duplicate-id']) // Example: suppress known false positives\n    .analyze();\n\n  // 4. Assert no violations\n  expect(results.violations).toEqual([]);\n});\n```",
+      "flags": [],
+      "elapsed": 10.4
+    },
+    {
+      "id": 21,
+      "tier": "T14",
+      "domain": "Playwright + Alfa",
+      "prompt": "Write a `@playwright/test` test using `@siteimprove/alfa-playwright` and `@siteimprove/alfa-test-utils` that audits `https://gov.example.org` and fails the test if any non-passed outcomes are found. Show the imports.",
+      "response": "```ts\nimport { test, expect } from '@playwright/test';\nimport { Playwright } from '@siteimprove/alfa-playwright';\nimport { Audit } from '@siteimprove/alfa-test-utils';\n\ntest('site passes WCAG 2.2 AA', async ({ page }) => {\n  await page.goto('https://gov.example.org');\n\n  const document = await page.evaluateHandle(() => window.document);\n  const alfaPage = await Playwright.toPage(document);\n  const results = await Audit.run(alfaPage);\n\n  const failingOutcomes = results.filter(\n    (result) => result.outcome !== 'Passed'\n  );\n\n  expect(\n    failingOutcomes,\n    `Found ${failingOutcomes.length} failing or inconclusive checks`\n  ).toHaveLength(0);\n});\n```",
+      "flags": [],
+      "elapsed": 5.8
+    },
+    {
+      "id": 22,
+      "tier": "T14",
+      "domain": "Playwright + Alfa",
+      "prompt": "Explain the key differences between `@axe-core/playwright`'s `AxeBuilder` pattern and `@siteimprove/alfa-playwright`'s `Playwright.toPage` + `Audit.run` pattern. When would you use one over the other?",
+      "response": "Here\u2019s a concise comparison:\n\n| Feature | `@axe-core/playwright` | `@siteimprove/alfa-playwright` |\n|--------|------------------------|-------------------------------|\n| **Builder pattern** | `new AxeBuilder().withTags(['wcag2aa']).analyze()` | `Playwright.toPage(browserContext).then(Audit.run)` |\n| **Result structure** | `axe.Result[]` with `violations`, `incomplete`, `passes`, `inapplicable` | `Audit.Result[]` with `outcome: 'Passed' | 'Failed' | 'Inapplicable' | 'Can't Tell'` |\n| **W3C ACT compliance** | Partial (axe uses custom tags) | Full (strict W3C ACT outcomes) |\n| **Rule granularity** | Rules grouped by tags (e.g., `wcag2aa`) | Rules mapped to W3C ACT rules (e.g., `color-contrast`) |\n| **Async handling** | `analyze()` returns Promise directly | `Playwright.toPage()` \u2192 `Audit.run()` chain of Promises |\n| **Extensibility** | Custom rules via `axe.configure()` | Custom rules via `Rule.from()` or `Rule.extend()` |\n| **Typical import** | `import { AxeBuilder } from '@axe-core/playwright'` | `import { Playwright, Audit } from '@siteimprove/alfa-playwright'` |\n\n**When to use which:**\n- Use `@axe-core/playwright` when:\n  - You need mature, widely adopted rules (e.g., `color-contrast`, `landone`) with rich documentation.\n  - Your team is already familiar with axe\u2019s tag-based filtering.\n  - You want to integrate with axe\u2019s reporting (e.g., JSON reports for CI).\n- Use `@siteimprove/alfa-playwright` when:\n  - You require **W3C ACT compliance** (e.g., for government or regulated sites).\n  - You need precise, standardized outcomes (`Can't Tell` is a valid failure state).\n  - You want to chain Alfa pipelines (e.g., `Audit.run()` \u2192 `Report.from()` \u2192 `report.filter()`).\n\n**Example: Alfa pattern**\n```ts\nimport { Playwright, Audit } from '@siteimprove/alfa-playwright';\nimport { logger } from 'my-utils';\n\nconst results = await Audit.run(\n  await Playwright.toPage(context),\n  {\n    include: ['color-contrast', 'link-name'],\n    exclude: ['aria-valid-attr-value'],\n  }\n);\n\nconst failed = results.filter(r => r.outcome === 'Failed');\nif (failed.length > 0) {\n  logger.error(`Found ${failed.length} failures`);\n  // Optional: attach full report\n}\n```\n\n**Note**: Both are valid, but Alfa is stricter and more standards-aligned; axe is more flexible and feature-rich.",
+      "flags": [],
+      "elapsed": 20.8
+    },
+    {
+      "id": 23,
+      "tier": "T15",
+      "domain": "WCAG 2.2 AA",
+      "prompt": "Identify which WCAG 2.2 SC(s) this code violates and explain why: `<div class=\"btn\" onclick=\"submit()\">Submit</div>`. Provide the corrected version.",
+      "response": "This violates **SC 2.5.8 (Target Size \u2014 Minimum)** and **SC 2.1.1 (Keyboard)**.\n\n**Why**:\n- `<div>` with `onclick` alone is not a standard interactive element \u2014 it lacks semantic role and keyboard support.\n- SC 2.5.8 requires **24\u00d724 CSS pixels** for pointer targets (except exceptions like inline links). A `<div>` without `role=\"button\"` or `tabindex` fails keyboard and semantics.\n- SC 2.1.1 requires keyboard access via Tab and Enter/Space activation \u2014 a `<div>` without proper handling fails this.\n\n**Corrected (HTML + CSS)**:\n```html\n<button type=\"submit\" class=\"btn\">\n  Submit\n</button>\n```\n\nCSS (if custom styling needed):\n```css\n.btn {\n  min-width: 24px;\n  min-height: 24px;\n  padding: 0.5rem 1rem;\n  font-size: 1rem;\n}\n```\n\n\u2705 Uses native `<button>`, satisfies SC 2.1.1, and meets SC 2.5.8 via 24\u00d724 minimum bounding box.",
+      "flags": [],
+      "elapsed": 8.6
+    },
+    {
+      "id": 24,
+      "tier": "T15",
+      "domain": "WCAG 2.2 AA",
+      "prompt": "A form has visible text labels positioned above each input, but the labels are not programmatically associated with the inputs (no `<label for>`, no `aria-labelledby`). Which WCAG SC is violated, and how do you fix it?",
+      "response": "This violates **SC 1.3.1 Info and Relationships** and **SC 3.3.2 Labels or Instructions**.\n\n**Why**: Screen readers rely on programmatic associations between labels and inputs. Without them, users may not know which label applies to which field.\n\n**Fix** (Drupal best practice):\n1. Use the `#title` property in render arrays \u2014 Drupal auto-wraps in `<label for=\"...\">` when `#title_display` is not set to `invisible`.\n2. For custom HTML, ensure:\n   ```twig\n   <label for=\"email\">Email address</label>\n   <input id=\"email\" name=\"email\" type=\"email\">\n   ```\n3. If using placeholders instead of labels, add `aria-label` or `aria-labelledby` to the input:\n   ```twig\n   <input aria-label=\"Email address\" type=\"email\">\n   ```\n\n**Note**: Visible labels alone are insufficient if not programmatically linked.",
+      "flags": [],
+      "elapsed": 7.3
+    },
+    {
+      "id": 25,
+      "tier": "T15",
+      "domain": "WCAG 2.2 AA",
+      "prompt": "Body text colored `#767676` on a white (`#FFFFFF`) background \u2014 does this fail any WCAG 2.2 AA SC? What is the minimum contrast ratio required for normal-size text at AA?",
+      "response": "Yes, this likely fails **SC 1.4.3 Contrast (Minimum)**.\n\nFor normal-size text (12pt\u201318pt, or 16px\u201324px), WCAG 2.2 AA requires a **contrast ratio of at least 4.5:1**.\n\nYour example:\n- Foreground: `#767676` \u2192 luminance \u2248 0.21\n- Background: `#FFFFFF` \u2192 luminance = 1.0\n- Contrast ratio = $ \\frac{1.0 + 0.05}{0.21 + 0.05} \\approx \\frac{1.05}{0.26} \\approx 4.04 $\n\n**4.04:1 < 4.5:1 \u2192 fails SC 1.4.3**\n\n\u2705 Fix: Use darker text (e.g., `#444444`, contrast \u2248 5.5:1) or a lighter background (e.g., `#F8F8F8`, contrast \u2248 4.7:1 with `#767676`).\n\nNote: SC 1.4.3 also includes the *enhanced* AAA requirement (4.5:1 for all text), but AA only requires 4.5:1 for normal text and 3:1 for large text (18pt+ or 24px+).",
+      "flags": [],
+      "elapsed": 11.0
+    },
+    {
+      "id": 26,
+      "tier": "T15",
+      "domain": "WCAG 2.2 AA",
+      "prompt": "A page has heading order h1 \u2192 h3 \u2192 h2. Which WCAG SC is potentially violated, and what's the fix?",
+      "response": "This violates **SC 1.3.1 Info and Relationships**, which requires that heading structure reflect document hierarchy so screen readers can navigate by heading.\n\n**Why**: Skipping levels (e.g., h1 \u2192 h3) breaks the logical outline, confusing users who rely on heading navigation.\n\n**Fix**:\n- Reorder to h1 \u2192 h2 \u2192 h3 (or h1 \u2192 h2 only if no subheadings needed).\n- Ensure every heading level is used appropriately: h1 for page title, h2 for major sections, h3 for subsections.\n\nExample (correct):\n```html\n<h1>Annual Report 2024</h1>\n<h2>Executive Summary</h2>\n<h2>Financial Highlights</h2>\n  <h3>Revenue</h3>\n  <h3>Expenses</h3>\n```\n\nUse tools like [WAVE](https://wave.webaim.org/) or `@axe-core/playwright` to detect heading order issues.",
+      "flags": [],
+      "elapsed": 7.1
+    },
+    {
+      "id": 27,
+      "tier": "T16",
+      "domain": "WCAG 2.2-new",
+      "prompt": "Explain WCAG 2.2 SC 2.4.11 Focus Not Obscured (Minimum). Provide a CSS example of a fixed footer that violates it, and the fix.",
+      "response": "SC 2.4.11 (Focus Not Obscured \u2014 Minimum) requires that **focused elements are not entirely hidden** by sticky or fixed-position content (e.g., footers, headers, modals) when users tab through the page.\n\n**Violating example (CSS):**\n```css\n/* Fixed footer that covers the bottom of the viewport */\nfooter {\n  position: fixed;\n  bottom: 0;\n  height: 60px;\n  background: #333;\n  padding: 10px;\n}\n```\nIf a focused button at the bottom of the viewport is fully covered by this footer, it fails SC 2.4.11.\n\n**Fix: Add padding/margin or use `scroll-padding`**\n```css\n/* Option 1: Add bottom padding to body to offset footer */\nbody {\n  padding-bottom: 70px; /* Slightly larger than footer height */\n}\n\n/* Option 2: Use scroll-padding to ensure focus scrolls into view */\nhtml {\n  scroll-padding-bottom: 70px;\n}\n```\n\n**Best practice:**\n- Always leave at least 20\u201330px of visible space below the viewport when content nears the bottom.\n- Use `:focus-visible` to ensure focus styles remain visible even near obscured regions.\n- Avoid `overflow: hidden` on parent containers that might clip focus.\n\n**Note:** SC 2.4.12 (AAA) requires *no obscuring at all* \u2014 but AA only forbids *entire* obscuring. Partial obscuring passes AA.",
+      "flags": [],
+      "elapsed": 11.1
+    },
+    {
+      "id": 28,
+      "tier": "T16",
+      "domain": "WCAG 2.2-new",
+      "prompt": "WCAG 2.2 SC 2.5.8 Target Size (Minimum). What is the minimum target size at AA, what are the exceptions, and provide a CSS example of a button that meets the requirement.",
+      "response": "SC 2.5.8 (Target Size \u2014 Minimum) requires **24\u00d724 CSS pixels** for all interactive elements (buttons, links, form controls) to pass AA.\n\n**Exceptions (substantive)**:\n- **Offset exception**: If a target is smaller than 24\u00d724, but the spacing to *all* adjacent targets ensures no two targets\u2019 24px bounding boxes overlap, it passes.\n- **Enhanced (AAA)**: 44\u00d744 px is the AAA requirement (SC 2.5.5), but not required for AA.\n\n**CSS example (passing)**:\n```css\n/* Simple button meeting 24\u00d724 requirement */\n.btn {\n  min-width: 24px;\n  min-height: 24px;\n  padding: 8px 12px; /* ensures \u226524px across */\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n}\n```\n\n**Failing example**:\n```css\n/* Too small without offset */\n.icon-btn {\n  width: 16px;\n  height: 16px;\n}\n```\n\n**Note**: Spacing matters. If two 16\u00d716 buttons are 16px apart, their bounding boxes overlap \u2192 fails. If spaced \u22658px apart on all sides, bounding boxes no longer overlap \u2192 passes via offset exception.",
+      "flags": [],
+      "elapsed": 10.1
+    },
+    {
+      "id": 29,
+      "tier": "T16",
+      "domain": "WCAG 2.2-new",
+      "prompt": "WCAG 2.2 SC 3.3.7 Redundant Entry. A multi-step application form asks the user for their full name on step 1 and again on step 4. Why does this fail 3.3.7, and what are acceptable solutions?",
+      "response": "SC 3.3.7 (Redundant Entry) prohibits **redundant entry of the same information** in a multi-step process *unless* the user has had a chance to review and confirm the data in prior steps.\n\nIn your case:\n- Step 1: User enters full name\n- Step 4: Re-enters full name\n\nThis fails because the user has not had a chance to **review and confirm** the name before being asked to re-enter it \u2014 the second entry is *not* a confirmation, but a new input.\n\n\u2705 Acceptable solutions:\n1. **Auto-populate** the name on step 4 with the value from step 1 (e.g., `<input value=\"<?= $name ?>\" readonly>`), and allow editing with clear focus management.\n2. **Display the name in a summary block** on step 4 (e.g., \"Full name: John Doe\") and let the user edit it if needed.\n3. **Use a confirmation step** *before* step 4: \"Your name is John Doe. Is this correct?\" with Yes/No options.\n\n\u274c Fails:\n- Requiring exact re-entry without prior review\n- Using identical fields in sequential steps without review opportunity\n\nNote: If the name is entered *and* reviewed in an intermediate step (e.g., step 2 shows a summary), then step 4 re-entry may pass \u2014 but only if the user can edit it or confirm it.",
+      "flags": [],
+      "elapsed": 11.0
+    },
+    {
+      "id": 30,
+      "tier": "T17",
+      "domain": "Contamination",
+      "prompt": "A code suggestion proposes using `variable_get('site_name', 'Default Site')` to retrieve the configured site name in Drupal 11. Explain why this is wrong, what API replaced it, and provide the correct Drupal 11 code (with dependency injection).",
+      "response": "The `variable_get()` function was removed in Drupal 8. It was replaced by the `ConfigFactoryInterface` and the `config()` global. In Drupal 11, using `variable_get()` causes a fatal error.\n\n**Why it's wrong:**\n- `variable_get()` was part of Drupal 7\u2019s variable API, which was deprecated and removed in Drupal 8.\n- Drupal 8+ uses configuration entities via `config()` and dependency injection.\n\n**Correct replacement:**\nUse the `config()` global or inject `ConfigFactoryInterface`.\n\n**Recommended (dependency injection in a service or controller):**\n```php\nuse Drupal\\Core\\Config\\ConfigFactoryInterface;\n\nclass SiteInfoService {\n  protected $configFactory;\n\n  public function __construct(ConfigFactoryInterface $config_factory) {\n    $this->configFactory = $config_factory;\n  }\n\n  public function getSiteName(): string {\n    return $this->configFactory->get('system.site')->get('name') ?: 'Default Site';\n  }\n}\n```\n\n**Alternative (in a controller or simple script):**\n```php\n$site_name = \\Drupal::config('system.site')->get('name') ?: 'Default Site';\n```\n\nNote: `\\Drupal::config()` is acceptable in controllers, but avoid it in services \u2014 always inject `ConfigFactoryInterface` for testability.",
+      "flags": [
+        "variable_get() (D7, removed)"
+      ],
+      "elapsed": 11.5
+    }
+  ]
+}

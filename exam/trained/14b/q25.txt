@@ -1,0 +1,14 @@
+Yes, this likely fails **SC 1.4.3 Contrast (Minimum)**.
+
+For normal-size text (12pt–18pt, or 16px–24px), WCAG 2.2 AA requires a **contrast ratio of at least 4.5:1**.
+
+Your example:
+- Foreground: `#767676` → luminance ≈ 0.21
+- Background: `#FFFFFF` → luminance = 1.0
+- Contrast ratio = $ \frac{1.0 + 0.05}{0.21 + 0.05} \approx \frac{1.05}{0.26} \approx 4.04 $
+
+**4.04:1 < 4.5:1 → fails SC 1.4.3**
+
+✅ Fix: Use darker text (e.g., `#444444`, contrast ≈ 5.5:1) or a lighter background (e.g., `#F8F8F8`, contrast ≈ 4.7:1 with `#767676`).
+
+Note: SC 1.4.3 also includes the *enhanced* AAA requirement (4.5:1 for all text), but AA only requires 4.5:1 for normal text and 3:1 for large text (18pt+ or 24px+).

@@ -1,0 +1,52 @@
+```python
+#!/usr/bin/env python3
+"""Scan HTML files for missing `alt` attributes on `<img>` tags per WCAG 2.2 AA."""
+
+import argparse
+import sys
+from pathlib import Path
+from bs4 import BeautifulSoup
+
+
+def find_missing_alt(directory: Path) -> list[tuple[Path, str]]:
+    """Return list of (file_path, img_src) for `<img>` tags missing `alt`."""
+    issues: list[tuple[Path, str]] = []
+    for html_file in directory.rglob("*.html"):
+        try:
+            soup = BeautifulSoup(html_file.read_text(), "html.parser")
+            for img in soup.find_all("img"):
+                if not img.has_attr("alt") or img.get("alt", "").strip() == "":
+                    issues.append((html_file, img.get("src", "(inline)")))
+        except Exception as e:
+            print(f"⚠️  Skipping {html_file}: {e}", file=sys.stderr)
+    return issues
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Check HTML files for missing `alt` on `<img>` (SC 1.1.1)"
+    )
+    parser.add_argument(
+        "--dir",
+        type=Path,
+        default=Path("/mnt/agency-docs"),
+        help="Root directory to scan (default: /mnt/agency-docs)"
+    )
+    args = parser.parse_args()
+
+    if not args.dir.exists():
+        print(f"Error: Directory not found: {args.dir}", file=sys.stderr)
+        sys.exit(1)
+
+    issues = find_missing_alt(args.dir)
+    if not issues:
+        print("✅ No missing `alt` attributes found.")
+    else:
+        print(f"❌ Found {len(issues)} image(s) missing `alt` attribute:")
+        for file, src in issues:
+            print(f"  - {file.name}: <img src='{src}'>")
+
+
+if __name__ == "__main__":
+    main()
+```

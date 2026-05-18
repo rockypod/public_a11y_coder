@@ -1,0 +1,19 @@
+In `webform.yml` or the specific form’s configuration (e.g., `config/sync/config/sync/core/content/webform/my_form.yml`), define the email element like this:
+
+```yaml
+elements:
+  email:
+    '#type': email
+    '#title': 'Email address'
+    '#required': true
+    '#title_display': 'before'
+    '#description': 'We will use this to send confirmation.'
+```
+
+Key points:
+- `#type: email` ensures HTML5 validation and accessible `<input type="email">`.
+- `#title` provides the visible label; **must be present** for association.
+- `#required: true` adds `aria-required="true"` and `required` attribute.
+- `#title_display: 'before'` (default) ensures label renders *before* the input, aiding screen reader flow.
+
+Avoid `#title_display: 'invisible'` unless paired with `#aria_label` — otherwise, the label is missing for accessibility.

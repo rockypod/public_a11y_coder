@@ -1,0 +1,59 @@
+```python
+#!/usr/bin/env python3
+"""Count files by extension in a directory tree."""
+
+import argparse
+import sys
+from collections import Counter
+from pathlib import Path
+
+
+def count_extensions(root: Path) -> Counter[str]:
+    """Recursively count files by extension under root."""
+    counter = Counter()
+    try:
+        for path in root.rglob('*'):
+            if path.is_file():
+                ext = path.suffix.lstrip('.').lower() or 'no-extension'
+                counter[ext] += 1
+    except PermissionError as e:
+        print(f"Permission denied accessing {e.filename}", file=sys.stderr)
+    except FileNotFoundError as e:
+        print(f"Path not found: {e.filename}", file=sys.stderr)
+    return counter
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Recursively count files by extension in a directory."
+    )
+    parser.add_argument(
+        'directory',
+        type=Path,
+        help='Root directory to scan (e.g., /mnt/agency-docs)'
+    )
+    parser.add_argument(
+        '--top',
+        type=int,
+        default=10,
+        help='Number of top extensions to display (default: 10)'
+    )
+    args = parser.parse_args()
+
+    if not args.directory.exists():
+        print(f"Error: Directory not found: {args.directory}", file=sys.stderr)
+        sys.exit(1)
+
+    counts = count_extensions(args.directory)
+    if not counts:
+        print("No files found.")
+        return
+
+    print(f"File counts under {args.directory}:")
+    for ext, cnt in counts.most_common(args.top):
+        print(f"  {ext or '(none)'}: {cnt}")
+
+
+if __name__ == '__main__':
+    main()
+```

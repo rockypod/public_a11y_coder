@@ -1,0 +1,51 @@
+In Drupal 11, use `EntityTypeManagerInterface` and `UserInterface` via dependency injection. Here's the correct controller:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace Drupal\my_module\Controller;
+
+use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\user\Entity\User;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\ServiceId;
+
+class UserController extends ControllerBase {
+
+  protected EntityTypeManagerInterface $entityTypeManager;
+
+  public function __construct(EntityTypeManagerInterface $entityTypeManager) {
+    $this->entityTypeManager = $entityTypeManager;
+  }
+
+  public static function create(ContainerInterface $container): self {
+    return new self(
+      $container->get('entity_type.manager')
+    );
+  }
+
+  public function viewUser(int $userId): array {
+    $storage = $this->entityTypeManager->getStorage('user');
+    $user = $storage->load($userId);
+
+    if (!$user instanceof User) {
+      throw new \Exception('User not found.');
+    }
+
+    return [
+      '#type' => 'markup',
+      '#markup' => $this->t('User name: @name', ['@name' => $user->getAccountName()]),
+    ];
+  }
+}
+```
+
+Key corrections:
+- `user_load()` is removed in Drupal 10+; use `EntityTypeManager::getStorage('user')->load()` or `EntityTypeManager::loadEntityByUuid()` for UUIDs.
+- `getAccountName()` is the correct method for the user name (returns `string`).
+- Always inject `entity_type.manager`, never call `EntityTypeManager::load()` statically.
+- Use `ContainerInterface::get('entity_type.manager')`, not `Drupal::service()`.

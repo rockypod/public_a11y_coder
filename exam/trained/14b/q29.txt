@@ -1,0 +1,18 @@
+SC 3.3.7 (Redundant Entry) prohibits **redundant entry of the same information** in a multi-step process *unless* the user has had a chance to review and confirm the data in prior steps.
+
+In your case:
+- Step 1: User enters full name
+- Step 4: Re-enters full name
+
+This fails because the user has not had a chance to **review and confirm** the name before being asked to re-enter it — the second entry is *not* a confirmation, but a new input.
+
+✅ Acceptable solutions:
+1. **Auto-populate** the name on step 4 with the value from step 1 (e.g., `<input value="<?= $name ?>" readonly>`), and allow editing with clear focus management.
+2. **Display the name in a summary block** on step 4 (e.g., "Full name: John Doe") and let the user edit it if needed.
+3. **Use a confirmation step** *before* step 4: "Your name is John Doe. Is this correct?" with Yes/No options.
+
+❌ Fails:
+- Requiring exact re-entry without prior review
+- Using identical fields in sequential steps without review opportunity
+
+Note: If the name is entered *and* reviewed in an intermediate step (e.g., step 2 shows a summary), then step 4 re-entry may pass — but only if the user can edit it or confirm it.

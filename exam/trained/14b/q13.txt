@@ -1,0 +1,37 @@
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace Drupal\my_module\Drush\Commands;
+
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drush\Attributes as CLI;
+use Drush\Commands\DrushCommands;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
+final class ArticleCountCommands extends DrushCommands {
+
+  public function __construct(
+    private EntityTypeManagerInterface $entityTypeManager
+  ) {
+  }
+
+  #[CLI\Command(
+    name: 'my-module:article-count',
+    aliases: ['article-count'],
+    description: 'Count published article nodes.'
+  )]
+  public function count(): int {
+    $storage = $this->entityTypeManager->getStorage('node');
+    $count = $storage->getQuery()
+      ->condition('type', 'article')
+      ->condition('status', 1)
+      ->count()
+      ->execute();
+
+    $this->io()->success("Published article count: {$count}");
+    return $count;
+  }
+}
+```

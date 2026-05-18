@@ -1,0 +1,22 @@
+```ts
+import { test, expect } from '@playwright/test';
+import { Playwright } from '@siteimprove/alfa-playwright';
+import { Audit } from '@siteimprove/alfa-test-utils';
+
+test('site passes WCAG 2.2 AA', async ({ page }) => {
+  await page.goto('https://gov.example.org');
+
+  const document = await page.evaluateHandle(() => window.document);
+  const alfaPage = await Playwright.toPage(document);
+  const results = await Audit.run(alfaPage);
+
+  const failingOutcomes = results.filter(
+    (result) => result.outcome !== 'Passed'
+  );
+
+  expect(
+    failingOutcomes,
+    `Found ${failingOutcomes.length} failing or inconclusive checks`
+  ).toHaveLength(0);
+});
+```

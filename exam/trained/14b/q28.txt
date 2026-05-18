@@ -1,0 +1,29 @@
+SC 2.5.8 (Target Size — Minimum) requires **24×24 CSS pixels** for all interactive elements (buttons, links, form controls) to pass AA.
+
+**Exceptions (substantive)**:
+- **Offset exception**: If a target is smaller than 24×24, but the spacing to *all* adjacent targets ensures no two targets’ 24px bounding boxes overlap, it passes.
+- **Enhanced (AAA)**: 44×44 px is the AAA requirement (SC 2.5.5), but not required for AA.
+
+**CSS example (passing)**:
+```css
+/* Simple button meeting 24×24 requirement */
+.btn {
+  min-width: 24px;
+  min-height: 24px;
+  padding: 8px 12px; /* ensures ≥24px across */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+```
+
+**Failing example**:
+```css
+/* Too small without offset */
+.icon-btn {
+  width: 16px;
+  height: 16px;
+}
+```
+
+**Note**: Spacing matters. If two 16×16 buttons are 16px apart, their bounding boxes overlap → fails. If spaced ≥8px apart on all sides, bounding boxes no longer overlap → passes via offset exception.

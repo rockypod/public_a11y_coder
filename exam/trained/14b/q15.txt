@@ -1,0 +1,46 @@
+```python
+import subprocess
+from pathlib import Path
+from typing import List
+
+def docx_to_pdf(input_dir: Path, output_dir: Path, timeout: int = 120) -> List[str]:
+    """
+    Convert all .docx files in input_dir to .pdf in output_dir.
+    Returns list of successfully converted filenames.
+    """
+    output_dir.mkdir(parents=True, exist_ok=True)
+    results: List[str] = []
+    
+    for docx_path in input_dir.glob("*.docx"):
+        try:
+            output_path = output_dir / f"{docx_path.stem}.pdf"
+            cmd = [
+                "libreoffice",
+                "--headless",
+                "--convert-to", "pdf",
+                "--outdir", str(output_dir),
+                str(docx_path)
+            ]
+            result = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                timeout=timeout,
+                check=False
+            )
+            if result.returncode != 0:
+                raise RuntimeError(f"LibreOffice failed: {result.stderr}")
+            if output_path.exists():
+                results.append(output_path.name)
+        except Exception as e:
+            print(f"Error converting {docx_path}: {e}")
+    
+    return results
+
+# Example usage
+if __name__ == "__main__":
+    input_folder = Path("/tmp/input")
+    output_folder = Path("/tmp/output")
+    converted = docx_to_pdf(input_folder, output_folder)
+    print(f"Converted {len(converted)} files: {converted}")
+```

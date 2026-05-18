@@ -1,0 +1,27 @@
+Implement in `my_module.module`:
+
+```php
+use Drupal\Core\Form\FormStateInterface;
+
+function my_module_form_article_node_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Ensure alt text is required for all image fields on the article form.
+  $image_fields = $form['field_image'] ?? $form['field_image_2'] ?? [];
+
+  if (!empty($image_fields)) {
+    $image_fields['alt'] = [
+      '#type' => 'textfield',
+      '#title' => t('Alternative text'),
+      '#required' => TRUE,
+      '#attributes' => [
+        'aria-required' => 'true',
+      ],
+    ];
+  }
+}
+```
+
+**WCAG SC**: [1.1.1 Non-text Content](https://www.w3.org/TR/WCAG22/#non-text-content)
+
+**Why**: Alt text is required for *all* non-decorative images to convey the same meaning as the visual content. Leaving it empty or optional allows content authors to omit critical information for screen reader users.
+
+**Note**: This assumes the image is *not* purely decorative. For decorative images, use `alt = ''` (empty string) — but that should be enforced via field settings, not this hook.

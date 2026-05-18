@@ -1,0 +1,45 @@
+This fails **SC 4.1.2 Name, Role, Value** and **SC 2.1.1 Keyboard** because:
+
+- `onclick` adds **non-standard behavior** without user control (violates SC 2.1.1 if keyboard-only users cannot trigger it)
+- Inline event handlers (`onclick`, `onmouseover`, etc.) are **not accessible** and not maintainable (SC 4.1.2 requires predictable semantics)
+- They are **not valid ARIA patterns** and break separation of concerns
+
+✅ **Drupal 11 fix using text format filters**:
+
+1. Go to **/admin/config/content/formats** → edit the format (e.g., *Basic HTML*).
+2. Under **Filter settings**, enable:
+   - **HTML Corrector** (auto-corrects malformed HTML)
+   - **HTML Sanitize** (removes or escapes unsafe attributes)
+   - **Limit allowed HTML tags** → restrict to:
+     ```yaml
+     allowed_tags:
+       - 'a'
+       - 'button'
+       - 'p'
+       - 'strong'
+       - 'em'
+     allowed_attributes:
+       a:
+         - 'href'
+         - 'title'
+       button:
+         - 'type'
+         - 'aria-label'
+     ```
+3. **Disable** or **restrict** attributes like `onclick`, `onchange`, `onload`, etc. in the allowed attributes list.
+
+✅ **Alternative (better)**: Replace inline HTML with proper Drupal render arrays:
+```php
+$build['my_button'] = [
+  '#type' => 'button',
+  '#value' => 'Click me',
+  '#attributes' => [
+    'aria-label' => 'Click to proceed',
+  ],
+  '#ajax' => [
+    'callback' => '::handleClick',
+  ],
+];
+```
+
+✅ **Bonus**: Use **[Accessibility Checker](https://www.drupal.org/project/a11ychecker)** to audit rendered HTML.

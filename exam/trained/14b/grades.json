@@ -1,0 +1,64 @@
+{
+  "model": "a11y-public-coder:14b",
+  "base_model": "Qwen/Qwen3-14B",
+  "exam_version": "v0.1",
+  "date": "2026-05-17",
+  "scores": {
+    "q01": { "score": 0.0, "reason": "Massive repeated import block, no actual hook function body" },
+    "q02": { "score": 1.0, "reason": "Correct render array, aria-label in #attributes" },
+    "q03": { "score": 1.0, "reason": "Correct YAML with label association explanation" },
+    "q04": { "score": 1.0, "reason": "Twig sandbox + preprocess hook workaround" },
+    "q05": { "score": 1.0, "reason": "routing.yml + JsonResponse controller" },
+    "q06": { "score": 1.0, "reason": "PHP 8 #[Block] attribute, ContainerFactoryPluginInterface" },
+    "q07": { "score": 0.5, "reason": "Cites SC 1.1.1 but form alter targets $image_fields['alt'] directly instead of widget sub-element" },
+    "q08": { "score": 1.0, "reason": "Identifies 4.1.2 + 2.1.1, text format filter approach" },
+    "q09": { "score": 1.0, "reason": "EntityTypeManagerInterface DI, getAccountName()" },
+    "q10": { "score": 0.5, "reason": "Constructor promotion present but no LoggerInterface; services.yml uses custom $language param not standard service" },
+    "q11": { "score": 0.0, "reason": "Wrong order: drush cr before drush updb (should be updb first)" },
+    "q12": { "score": 0.5, "reason": "Mentions --partial but fabricated flags (--type, --name, --include, --exclude don't exist)" },
+    "q13": { "score": 0.5, "reason": "#[CLI\\Command] attribute correct but missing ->accessCheck(FALSE)" },
+    "q14": { "score": 1.0, "reason": "pathlib.Path, rglob, Counter, type hints, argparse" },
+    "q15": { "score": 1.0, "reason": "subprocess.run, libreoffice headless, pathlib, error handling" },
+    "q16": { "score": 1.0, "reason": "pymupdf/fitz, page.get_text(), correct format" },
+    "q17": { "score": 0.5, "reason": "Flags alt=\"\" as violation (decorative images intentionally allowed)" },
+    "q18": { "score": 1.0, "reason": "AxeBuilder, analyze(), violations assertion" },
+    "q19": { "score": 0.5, "reason": "Uses ['wcag2a','wcag2aa'] only — missing wcag21a, wcag21aa, wcag22a, wcag22aa" },
+    "q20": { "score": 1.0, "reason": "getByLabel, getByRole, waitForURL, AxeBuilder" },
+    "q21": { "score": 1.0, "reason": "All 3 Alfa imports, evaluateHandle, Playwright.toPage, Audit.run, correct assertion" },
+    "q22": { "score": 1.0, "reason": "API shape, ACT-rules coverage, result structure, when-to-use guidance" },
+    "q23": { "score": 0.5, "reason": "Cites 2.1.1 and 2.5.8 but misses 4.1.2; fix uses correct <button>" },
+    "q24": { "score": 1.0, "reason": "1.3.1 + 3.3.2 cited, correct label-for and aria-label fixes" },
+    "q25": { "score": 0.5, "reason": "Correct conclusion (fails 1.4.3) but computes wrong ratio (4.04:1 vs ~4.48:1)" },
+    "q26": { "score": 1.0, "reason": "1.3.1 cited, h1->h3 skip identified, correct fix shown" },
+    "q27": { "score": 1.0, "reason": "SC stated, Minimum vs 2.4.12 AAA noted, scroll-padding-bottom fix provided" },
+    "q28": { "score": 0.5, "reason": "24x24 correct, CSS correct, but only 1 of 5 exceptions listed (offset/spacing only)" },
+    "q29": { "score": 0.5, "reason": "Failure identified and solutions given but SC exceptions not listed" },
+    "q30": { "score": 1.0, "reason": "D8 removal, ConfigFactory DI, system.site/name key" }
+  },
+  "domain_totals": {
+    "drupal_11":        { "raw": 6.5, "max": 8,  "questions": "q01-q08" },
+    "php_8_3":          { "raw": 1.5, "max": 2,  "questions": "q09-q10" },
+    "drush_12":         { "raw": 1.0, "max": 3,  "questions": "q11-q13" },
+    "python_3_12":      { "raw": 3.5, "max": 4,  "questions": "q14-q17" },
+    "playwright_axe":   { "raw": 2.5, "max": 3,  "questions": "q18-q20" },
+    "playwright_alfa":  { "raw": 2.0, "max": 2,  "questions": "q21-q22" },
+    "wcag_aa_general":  { "raw": 3.0, "max": 4,  "questions": "q23-q26" },
+    "wcag_22_new":      { "raw": 2.0, "max": 3,  "questions": "q27-q29" },
+    "contamination":    { "raw": 1.0, "max": 1,  "questions": "q30" }
+  },
+  "totals": {
+    "raw": 23.0,
+    "max": 30.0,
+    "percent": 76.7
+  },
+  "comparison": {
+    "qwen3_14b_baseline": { "raw": 16.0, "percent": 53.3 },
+    "qwen3_4b_baseline":  { "raw": 13.5, "percent": 45.0 },
+    "trained_4b":         { "raw": 22.0, "percent": 73.3 },
+    "trained_14b":        { "raw": 23.0, "percent": 76.7 }
+  },
+  "lift_vs_14b_baseline": {
+    "points": 7.0,
+    "percent_points": 23.4
+  }
+}

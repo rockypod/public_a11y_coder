@@ -1,0 +1,32 @@
+The `variable_get()` function was removed in Drupal 8. It was replaced by the `ConfigFactoryInterface` and the `config()` global. In Drupal 11, using `variable_get()` causes a fatal error.
+
+**Why it's wrong:**
+- `variable_get()` was part of Drupal 7’s variable API, which was deprecated and removed in Drupal 8.
+- Drupal 8+ uses configuration entities via `config()` and dependency injection.
+
+**Correct replacement:**
+Use the `config()` global or inject `ConfigFactoryInterface`.
+
+**Recommended (dependency injection in a service or controller):**
+```php
+use Drupal\Core\Config\ConfigFactoryInterface;
+
+class SiteInfoService {
+  protected $configFactory;
+
+  public function __construct(ConfigFactoryInterface $config_factory) {
+    $this->configFactory = $config_factory;
+  }
+
+  public function getSiteName(): string {
+    return $this->configFactory->get('system.site')->get('name') ?: 'Default Site';
+  }
+}
+```
+
+**Alternative (in a controller or simple script):**
+```php
+$site_name = \Drupal::config('system.site')->get('name') ?: 'Default Site';
+```
+
+Note: `\Drupal::config()` is acceptable in controllers, but avoid it in services — always inject `ConfigFactoryInterface` for testability.

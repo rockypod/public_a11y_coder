@@ -1,0 +1,23 @@
+The Twig sandbox in Drupal 11 blocks **method calls on objects** (including entity methods like `access()`) for security — to prevent arbitrary code execution and ensure templates remain presentation-only.
+
+✅ **Recommended workaround**:
+1. Precompute access in a preprocess hook:
+```php
+// In mymodule.module or node.theme
+function mymodule_preprocess_node(&$variables) {
+  $node = $variables['node'];
+  $variables['can_view'] = $node->access('view')->isAllowed();
+}
+```
+2. In `node.html.twig`, use the precomputed variable:
+```twig
+{% if can_view %}
+  <article{{ attributes }}>
+    {{ content }}
+  </article>
+{% else %}
+  <p>{{ 'Access denied'|t }}</p>
+{% endif %}
+```
+
+⚠️ Never call `node.access('view')` directly in Twig — it will throw a `TwigSandboxException`.

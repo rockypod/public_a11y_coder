@@ -1,0 +1,52 @@
+**`src/Service/WordCounter.php`**
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace Drupal\mymodule\Service;
+
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+
+final class WordCounter {
+  use StringTranslationTrait;
+
+  public function __construct(
+    private readonly string $language = 'en',
+  ) {}
+
+  public function countWords(string $text): int {
+    // Normalize newlines and trim whitespace
+    $text = str_replace(["\r\n", "\r"], "\n", $text);
+    $text = trim($text);
+
+    // Split on whitespace, preserving punctuation attached to words
+    $words = preg_split('/\s+/', $text, -1, PREG_SPLIT_NO_EMPTY);
+
+    return count($words);
+  }
+
+  public function getWordCountLabel(): TranslatableMarkup {
+    return $this->t('Word count');
+  }
+}
+```
+
+**`mymodule.services.yml`**
+```yaml
+services:
+  mymodule.word_counter:
+    class: Drupal\mymodule\Service\WordCounter
+    arguments:
+      $language: 'en'
+    tags:
+      - { name: mymodule.service }
+```
+
+**Key PHP 8.3 features used:**
+- `readonly` property on constructor parameter
+- `final` class and method (where appropriate)
+- `declare(strict_types=1)`
+- Typed constructor arguments and return types (`string`, `int`, `TranslatableMarkup`)
+- Use of `StringTranslationTrait` for translation (Drupal core pattern)

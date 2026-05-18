@@ -36,7 +36,7 @@ model-index:
             value: 73.3
           - type: accuracy
             name: 30-question exam (14B)
-            value: 0  # fill after 14B exam
+            value: 76.7
 ---
 
 # a11y-public-coder
@@ -56,8 +56,8 @@ model-index:
 | **Base model** | `Qwen/Qwen3-4B` | `Qwen/Qwen3-14B` |
 | **Quantization** | Q4_K_M GGUF (~2.5 GB) | Q4_K_M GGUF (~9 GB) |
 | **Recommended use** | Demo, non-technical explanation, portable inference | Daily-driver technical work, OpenWebUI deployment |
-| **Exam score** | **73.3%** (22.0/30) | TBD |
-| **Lift vs base** | **+28.3%** (from 45.0% baseline) | TBD |
+| **Exam score** | **73.3%** (22.0/30) | **76.7%** (23.0/30) |
+| **Lift vs base** | **+28.3%** (from 45.0% baseline) | **+23.4%** (from 53.3% baseline) |
 | **Ollama tag** | `rockypod/public-a11y-coder:4b` | `rockypod/public-a11y-coder:14b` |
 
 ## What's in this repo
@@ -161,7 +161,7 @@ Models are evaluated against a 30-question exam covering all training domains, s
 | `qwen3:8b` baseline | 17.0/30 | 56.7% |
 | `qwen3:14b` baseline | 16.0/30 | 53.3% |
 | **`a11y-public-coder:4b` (trained)** | **22.0/30** | **73.3%** |
-| **`a11y-public-coder:14b` (trained)** | TBD | TBD |
+| **`a11y-public-coder:14b` (trained)** | **23.0/30** | **76.7%** |
 
 ### Per-domain results — 4B trained vs baseline `qwen3:4b`
 
@@ -180,7 +180,18 @@ Models are evaluated against a 30-question exam covering all training domains, s
 
 ### Per-domain results — 14B trained vs baseline `qwen3:14b`
 
-Results will be published here after the 14B training run completes.
+| Domain | Baseline | Trained 14B | Lift |
+|---|---|---|---|
+| Drupal 11 | 3.0/8 (37.5%) | 6.5/8 (81.3%) | **+3.5** ⬆ |
+| PHP 8.3 | 1.5/2 (75.0%) | 1.5/2 (75.0%) | 0 |
+| Drush 12 | 1.5/3 (50.0%) | 1.0/3 (33.3%) | -0.5 ⬇ |
+| Python 3.12 | 2.5/4 (62.5%) | 3.5/4 (87.5%) | **+1.0** ⬆ |
+| Playwright + axe-core | 1.0/3 (33.3%) | 2.5/3 (83.3%) | **+1.5** ⬆ |
+| Playwright + Alfa | 1.0/2 (50.0%) | 2.0/2 (100%) | **+1.0** ✓ |
+| WCAG 2.2 AA (carryover) | 3.0/4 (75.0%) | 3.0/4 (75.0%) | 0 |
+| WCAG 2.2-new ⭐ | 1.5/3 (50.0%) | 2.0/3 (66.7%) | +0.5 |
+| Negative/contamination gate | 1.0/1 (100%) | 1.0/1 (100%) | 0 ✓ |
+| **Total** | **16.0/30 (53.3%)** | **23.0/30 (76.7%)** | **+7.0 (+23.4%)** |
 
 ## Running the exam yourself
 

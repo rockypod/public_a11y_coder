@@ -1,0 +1,18 @@
+This violates **SC 1.3.1 Info and Relationships**, which requires that heading structure reflect document hierarchy so screen readers can navigate by heading.
+
+**Why**: Skipping levels (e.g., h1 → h3) breaks the logical outline, confusing users who rely on heading navigation.
+
+**Fix**:
+- Reorder to h1 → h2 → h3 (or h1 → h2 only if no subheadings needed).
+- Ensure every heading level is used appropriately: h1 for page title, h2 for major sections, h3 for subsections.
+
+Example (correct):
+```html
+<h1>Annual Report 2024</h1>
+<h2>Executive Summary</h2>
+<h2>Financial Highlights</h2>
+  <h3>Revenue</h3>
+  <h3>Expenses</h3>
+```
+
+Use tools like [WAVE](https://wave.webaim.org/) or `@axe-core/playwright` to detect heading order issues.

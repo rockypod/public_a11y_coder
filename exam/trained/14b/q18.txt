@@ -1,0 +1,16 @@
+```ts
+import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+
+test('gov.example.org has no accessibility violations', async ({ page }) => {
+  await page.goto('https://gov.example.org');
+
+  const accessibilityScanResults = await new AxeBuilder({ page })
+    .withTags(['wcag2a', 'wcag2aa', 'wcag22aa'])
+    .include('main')
+    .disableRules(['color-contrast', 'duplicate-id']) // Example: disable known false positives in controlled environments
+    .analyze();
+
+  expect(accessibilityScanResults.violations).toHaveLength(0);
+});
+```

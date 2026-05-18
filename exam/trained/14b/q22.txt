@@ -1,0 +1,43 @@
+Here’s a concise comparison:
+
+| Feature | `@axe-core/playwright` | `@siteimprove/alfa-playwright` |
+|--------|------------------------|-------------------------------|
+| **Builder pattern** | `new AxeBuilder().withTags(['wcag2aa']).analyze()` | `Playwright.toPage(browserContext).then(Audit.run)` |
+| **Result structure** | `axe.Result[]` with `violations`, `incomplete`, `passes`, `inapplicable` | `Audit.Result[]` with `outcome: 'Passed' | 'Failed' | 'Inapplicable' | 'Can't Tell'` |
+| **W3C ACT compliance** | Partial (axe uses custom tags) | Full (strict W3C ACT outcomes) |
+| **Rule granularity** | Rules grouped by tags (e.g., `wcag2aa`) | Rules mapped to W3C ACT rules (e.g., `color-contrast`) |
+| **Async handling** | `analyze()` returns Promise directly | `Playwright.toPage()` → `Audit.run()` chain of Promises |
+| **Extensibility** | Custom rules via `axe.configure()` | Custom rules via `Rule.from()` or `Rule.extend()` |
+| **Typical import** | `import { AxeBuilder } from '@axe-core/playwright'` | `import { Playwright, Audit } from '@siteimprove/alfa-playwright'` |
+
+**When to use which:**
+- Use `@axe-core/playwright` when:
+  - You need mature, widely adopted rules (e.g., `color-contrast`, `landone`) with rich documentation.
+  - Your team is already familiar with axe’s tag-based filtering.
+  - You want to integrate with axe’s reporting (e.g., JSON reports for CI).
+- Use `@siteimprove/alfa-playwright` when:
+  - You require **W3C ACT compliance** (e.g., for government or regulated sites).
+  - You need precise, standardized outcomes (`Can't Tell` is a valid failure state).
+  - You want to chain Alfa pipelines (e.g., `Audit.run()` → `Report.from()` → `report.filter()`).
+
+**Example: Alfa pattern**
+```ts
+import { Playwright, Audit } from '@siteimprove/alfa-playwright';
+import { logger } from 'my-utils';
+
+const results = await Audit.run(
+  await Playwright.toPage(context),
+  {
+    include: ['color-contrast', 'link-name'],
+    exclude: ['aria-valid-attr-value'],
+  }
+);
+
+const failed = results.filter(r => r.outcome === 'Failed');
+if (failed.length > 0) {
+  logger.error(`Found ${failed.length} failures`);
+  // Optional: attach full report
+}
+```
+
+**Note**: Both are valid, but Alfa is stricter and more standards-aligned; axe is more flexible and feature-rich.

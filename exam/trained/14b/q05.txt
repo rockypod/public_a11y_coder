@@ -1,0 +1,46 @@
+**`mymodule.routing.yml`**:
+```yaml
+mymodule.word_count:
+  path: '/api/word-count'
+  defaults:
+    _controller: '\Drupal\mymodule\Controller\WordCountController::count'
+    _method: 'POST'
+    _format: 'json'
+  requirements:
+    _permission: 'access content'
+```
+
+**`src/Controller/WordCountController.php`**:
+```php
+<?php
+
+namespace Drupal\mymodule\Controller;
+
+use Drupal\Core\Controller\ControllerBase;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+
+class WordCountController extends ControllerBase {
+
+  public function count(Request $request): JsonResponse {
+    $data = json_decode($request->getContent(), TRUE);
+
+    if (!isset($data['text']) || !is_string($data['text'])) {
+      throw new BadRequestHttpException('Missing or invalid "text" parameter.');
+    }
+
+    $wordCount = str_word_count(trim($data['text']));
+
+    return new JsonResponse([
+      'word_count' => $wordCount,
+    ]);
+  }
+
+}
+```
+
+✅ Uses `str_word_count()` for accurate English tokenization.
+✅ Returns `200 OK` with JSON body on success.
+✅ Throws `BadRequestHttpException` for invalid input (handled by Drupal’s error layer).
+✅ Requires `_permission: 'access content'` for security.

@@ -1,0 +1,34 @@
+SC 2.4.11 (Focus Not Obscured — Minimum) requires that **focused elements are not entirely hidden** by sticky or fixed-position content (e.g., footers, headers, modals) when users tab through the page.
+
+**Violating example (CSS):**
+```css
+/* Fixed footer that covers the bottom of the viewport */
+footer {
+  position: fixed;
+  bottom: 0;
+  height: 60px;
+  background: #333;
+  padding: 10px;
+}
+```
+If a focused button at the bottom of the viewport is fully covered by this footer, it fails SC 2.4.11.
+
+**Fix: Add padding/margin or use `scroll-padding`**
+```css
+/* Option 1: Add bottom padding to body to offset footer */
+body {
+  padding-bottom: 70px; /* Slightly larger than footer height */
+}
+
+/* Option 2: Use scroll-padding to ensure focus scrolls into view */
+html {
+  scroll-padding-bottom: 70px;
+}
+```
+
+**Best practice:**
+- Always leave at least 20–30px of visible space below the viewport when content nears the bottom.
+- Use `:focus-visible` to ensure focus styles remain visible even near obscured regions.
+- Avoid `overflow: hidden` on parent containers that might clip focus.
+
+**Note:** SC 2.4.12 (AAA) requires *no obscuring at all* — but AA only forbids *entire* obscuring. Partial obscuring passes AA.

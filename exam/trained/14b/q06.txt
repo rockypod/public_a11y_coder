@@ -1,0 +1,77 @@
+File path: `modules/custom/hello_block/src/Plugin/Block/HelloBlock.php`
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace Drupal\hello_block\Plugin\Block;
+
+use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Plugin\Attribute\Block;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
+#[Block(
+  id: 'hello_block',
+  admin_label: 'Hello Block',
+)]
+class HelloBlock extends BlockBase implements ContainerFactoryPluginInterface {
+
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('current_user')
+    );
+  }
+
+  protected $currentUser;
+
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, $current_user) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->currentUser = $current_user;
+  }
+
+  public function defaultConfiguration(): array {
+    return parent::defaultConfiguration() + [
+      'greeting' => 'Hello',
+    ];
+  }
+
+  public function blockForm($form, FormStateInterface $form_state): array {
+    $form = parent::blockForm($form, $form_state);
+    $form['greeting'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Greeting'),
+      '#default_value' => $this->configuration['greeting'],
+      '#required' => TRUE,
+    ];
+    return $form;
+  }
+
+  public function blockSubmit($form, FormStateInterface $form_state): void {
+    parent::blockSubmit($form, $form_state);
+    $this->configuration['greeting'] = $form_state->getValue('greeting');
+  }
+
+  public function build(): array {
+    $name = $this->currentUser->getDisplayName();
+    return [
+      '#markup' => $this->t('@greeting, @name', [
+        '@greeting' => $this->configuration['greeting'],
+        '@name' => $name ?: $this->t('anonymous'),
+      ]),
+    ];
+  }
+
+}
+```
+
+Key points:
+- Uses `#[Block]` attribute (PHP 8+) instead of `@Block` annotation
+- Implements `ContainerFactoryPluginInterface` for dependency injection (`current_user`)
+- Uses `declare(strict_types=1)` and typed constructor parameters
+- `build()` returns a render array with `#markup` and proper translation via `$this->t()`

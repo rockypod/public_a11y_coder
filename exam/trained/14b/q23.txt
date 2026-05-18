@@ -1,0 +1,25 @@
+This violates **SC 2.5.8 (Target Size — Minimum)** and **SC 2.1.1 (Keyboard)**.
+
+**Why**:
+- `<div>` with `onclick` alone is not a standard interactive element — it lacks semantic role and keyboard support.
+- SC 2.5.8 requires **24×24 CSS pixels** for pointer targets (except exceptions like inline links). A `<div>` without `role="button"` or `tabindex` fails keyboard and semantics.
+- SC 2.1.1 requires keyboard access via Tab and Enter/Space activation — a `<div>` without proper handling fails this.
+
+**Corrected (HTML + CSS)**:
+```html
+<button type="submit" class="btn">
+  Submit
+</button>
+```
+
+CSS (if custom styling needed):
+```css
+.btn {
+  min-width: 24px;
+  min-height: 24px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+```
+
+✅ Uses native `<button>`, satisfies SC 2.1.1, and meets SC 2.5.8 via 24×24 minimum bounding box.

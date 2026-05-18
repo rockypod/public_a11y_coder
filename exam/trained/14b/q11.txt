@@ -1,0 +1,18 @@
+Run the following in sequence:
+
+```bash
+drush cr
+drush updb
+```
+
+Or combine in one line for brevity:
+
+```bash
+drush cr && drush updb
+```
+
+Explanation:
+- `drush cr` (alias for `cache:rebuild`) clears all caches (including container, render, and discovery caches).
+- `drush updb` (alias for `updatedb:apply`) runs pending database updates (schema changes, config imports, etc.).
+
+⚠️ Always run `drush updb` *after* `drush cr` to ensure updated services are available during updates.

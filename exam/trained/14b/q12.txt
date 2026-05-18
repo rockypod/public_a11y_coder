@@ -1,0 +1,38 @@
+Use `drush config:export` with the `--source` and `--destination` options, or better: use `drush config:export` with `--partial` and filter by type.
+
+**Recommended (Drush 12)**:
+```bash
+drush config:export \
+  --source=../config/sync \
+  --destination=../config/sync \
+  --partial \
+  --type=node_type \
+  --name=article
+```
+
+**Alternative (explicit export + import)**:
+```bash
+# Export only article node type and its fields
+drush config:export \
+  --source=../config/sync \
+  --destination=../config/sync \
+  --partial \
+  --include=node.type.article \
+  --include=node.field.storage.node.* \
+  --include=node.type.*.label \
+  --exclude=node.type.*.uuid
+```
+
+**Important**:
+- `--partial` is required to avoid full sync
+- Use `--source` to read from the sync directory (not the active DB)
+- Avoid `--force` unless you know what you're doing
+- Always verify with `drush config:status` before committing
+
+**To import later**:
+```bash
+drush config:import \
+  --source=../config/sync \
+  --partial \
+  --yes
+```

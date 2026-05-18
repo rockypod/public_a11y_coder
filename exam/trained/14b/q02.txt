@@ -1,0 +1,27 @@
+```php
+$build = [
+  '#type' => 'link',
+  '#title' => t('Apply Now'),
+  '#url' => Url::fromRoute('my_module.apply_form'),
+  '#attributes' => [
+    'aria-label' => 'Apply now for benefits',
+  ],
+];
+
+// Or using renderable properties directly:
+$build = [
+  '#type' => 'link',
+  '#text' => 'Apply Now',
+  '#url' => Url::fromRoute('my_module.apply_form'),
+  '#attributes' => [
+    'aria-label' => 'Apply now for benefits',
+  ],
+];
+```
+
+Notes:
+- Use `#type => 'link'` (not `'a'`), which auto-escapes and renders correctly.
+- `#title` or `#text` both work; prefer `#text` for plain text.
+- `aria-label` is added via `#attributes` — do not hardcode in `#text`.
+- Always use `Url::fromRoute()` (not hardcoded `/apply`).
+- For accessibility, ensure the `aria-label` is concise and context-appropriate.
